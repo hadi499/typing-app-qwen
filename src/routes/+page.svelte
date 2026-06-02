@@ -1,16 +1,6 @@
 <script lang="ts">
-  import { getTotalStars, getProgress } from "$lib/stores/progress";
+  import { getProgress } from "$lib/stores/progress";
   import { lessons } from "$lib/data/lessons";
-
-  let totalStars = $state(0);
-
-  function loadUserData() {
-    totalStars = getTotalStars();
-  }
-
-  $effect(() => {
-    loadUserData();
-  });
 </script>
 
 <svelte:head>
@@ -19,6 +9,17 @@
 
 <div class="page">
   <main class="main">
+    <a href="/practice/basic" class="game-card basic-practice-card">
+      <div class="game-card-icon">⌨️</div>
+      <div class="game-card-content">
+        <h2 class="game-card-title">Latihan Dasar</h2>
+        <p class="game-card-desc">
+          Latihan posisi jari home row: A S D F J K L ;
+        </p>
+        <div class="game-card-arrow">→</div>
+      </div>
+    </a>
+
     <a href="/game" class="game-card">
       <div class="game-card-icon">🎮</div>
       <div class="game-card-content">
@@ -36,9 +37,10 @@
     </div>
 
     <div class="lessons-grid">
-      {#each lessons as lesson}
+      {#each lessons as lesson, i}
         {@const p = getProgress(lesson.id)}
-        {@const isLocked = totalStars < lesson.unlockScore}
+        {@const prevProgress = i > 0 ? getProgress(lessons[i - 1].id) : null}
+        {@const isLocked = lesson.unlockScore > 0 && (!prevProgress || prevProgress.bestAccuracy < 80)}
         <a
           href={isLocked ? undefined : `/practice/${lesson.id}`}
           class="lesson-card"
@@ -51,19 +53,15 @@
             <p class="card-desc">{lesson.description}</p>
             {#if !isLocked}
               <div class="card-footer">
-                <div class="stars">
-                  {#each Array(3) as _, i}
-                    <span class="star" class:filled={i < p.stars}>
-                      {i < p.stars ? "⭐" : "☆"}
-                    </span>
-                  {/each}
-                </div>
                 {#if p.bestWPM > 0}
                   <span class="card-wpm">{p.bestWPM} WPM</span>
                 {/if}
+                {#if p.bestAccuracy > 0}
+                  <span class="card-accuracy">{p.bestAccuracy}%</span>
+                {/if}
               </div>
             {:else}
-              <p class="card-lock-text">Butuh {lesson.unlockScore} bintang</p>
+              <p class="card-lock-text">Butuh akurasi 80% di pelajaran sebelumnya</p>
             {/if}
           </div>
         </a>
@@ -111,6 +109,27 @@
     color: white;
     transition: all 0.3s;
     margin-bottom: 32px;
+  }
+
+  .basic-practice-card {
+    background: linear-gradient(
+      135deg,
+      rgba(74, 222, 128, 0.1),
+      rgba(34, 197, 94, 0.1)
+    );
+    border-color: rgba(74, 222, 128, 0.3);
+  }
+
+  .basic-practice-card:hover {
+    border-color: rgba(74, 222, 128, 0.5);
+    box-shadow: 0 12px 32px rgba(74, 222, 128, 0.3);
+  }
+
+  .basic-practice-card .game-card-title {
+    background: linear-gradient(135deg, #4ade80, #22c55e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .game-card:hover {
@@ -239,18 +258,15 @@
     gap: 12px;
   }
 
-  .stars {
-    display: flex;
-    gap: 4px;
-  }
-
-  .star {
-    font-size: 20px;
-  }
-
   .card-wpm {
     font-size: 12px;
     color: #fbbf24;
+    font-weight: 600;
+  }
+
+  .card-accuracy {
+    font-size: 12px;
+    color: #4ade80;
     font-weight: 600;
   }
 

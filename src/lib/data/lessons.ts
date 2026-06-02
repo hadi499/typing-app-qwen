@@ -101,7 +101,7 @@ export const lessons: Lesson[] = [
 			'salad flask lad fad',
 			'ask dak lad salad'
 		],
-		unlockScore: 30
+		unlockScore: 0
 	},
 	{
 		id: 4,
@@ -116,7 +116,7 @@ export const lessons: Lesson[] = [
 			'side file like life',
 			'idea diesel die lie'
 		],
-		unlockScore: 40
+		unlockScore: 3
 	},
 	{
 		id: 5,
@@ -131,7 +131,7 @@ export const lessons: Lesson[] = [
 			'real rule fire sure',
 			'fuel rude ruler real'
 		],
-		unlockScore: 50
+		unlockScore: 6
 	},
 	{
 		id: 6,
@@ -146,7 +146,7 @@ export const lessons: Lesson[] = [
 			'story quick power type',
 			'water world quiet your'
 		],
-		unlockScore: 60
+		unlockScore: 9
 	},
 	{
 		id: 7,
@@ -161,7 +161,7 @@ export const lessons: Lesson[] = [
 			'fight high right light',
 			'night might sight ghost'
 		],
-		unlockScore: 65
+		unlockScore: 12
 	},
 	{
 		id: 8,
@@ -176,7 +176,7 @@ export const lessons: Lesson[] = [
 			'brave box fox calm',
 			'very best zero exit'
 		],
-		unlockScore: 70
+		unlockScore: 15
 	},
 	{
 		id: 9,
@@ -191,7 +191,7 @@ export const lessons: Lesson[] = [
 			'men come home nice.',
 			'game name mice calm.'
 		],
-		unlockScore: 75
+		unlockScore: 18
 	},
 	{
 		id: 10,
@@ -206,7 +206,7 @@ export const lessons: Lesson[] = [
 			'five big wizards jump quickly at the box.',
 			'crazy frederick bought many very exquisite opal jewels.'
 		],
-		unlockScore: 80
+		unlockScore: 21
 	},
 	{
 		id: 11,
@@ -221,7 +221,7 @@ export const lessons: Lesson[] = [
 			'45 12 34 51',
 			'23 45 12 34'
 		],
-		unlockScore: 85
+		unlockScore: 24
 	},
 	{
 		id: 12,
@@ -236,7 +236,7 @@ export const lessons: Lesson[] = [
 			'100 200 50 25 10',
 			'88 99 77 55 33'
 		],
-		unlockScore: 90
+		unlockScore: 27
 	}
 ];
 

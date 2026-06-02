@@ -5,8 +5,6 @@
 		createUser, 
 		deleteUser, 
 		setCurrentUserId,
-		getTotalStars,
-		getMaxStars,
 		getGameHighScores
 	} from '$lib/stores/users';
 	import type { UserProfile } from '$lib/stores/users';
@@ -119,22 +117,19 @@
 				</div>
 			</div>
 		{:else}
-			<div class="users-grid">
-				{#each users as user}
-					{@const totalStars = getTotalStars(user.id)}
-					{@const maxStars = getMaxStars()}
-					{@const highScores = getGameHighScores(user.id)}
-					<div class="user-card">
-						<button class="user-select" onclick={() => handleSelectUser(user.id)}>
-							<div class="user-avatar">{user.avatar}</div>
-							<div class="user-info">
-								<h3 class="user-name">{user.name}</h3>
-								<div class="user-stats">
-									<span class="stat">⭐ {totalStars}/{maxStars}</span>
-									<span class="stat">🎮 {Math.max(highScores.left, highScores.right, highScores.both, highScores.all)}</span>
-								</div>
-							</div>
-						</button>
+	<div class="users-grid">
+		{#each users as user}
+			{@const highScores = getGameHighScores(user.id)}
+			<div class="user-card">
+				<button class="user-select" onclick={() => handleSelectUser(user.id)}>
+					<div class="user-avatar">{user.avatar}</div>
+					<div class="user-info">
+						<h3 class="user-name">{user.name}</h3>
+						<div class="user-stats">
+							<span class="stat">🎮 {Math.max(highScores.left, highScores.right, highScores.both, highScores.all)}</span>
+						</div>
+					</div>
+				</button>
 						<button 
 							class="delete-btn"
 							onclick={() => handleDeleteUser(user.id, user.name)}

@@ -42,67 +42,13 @@
     right: ["j", "k", "l", ";"],
     both: ["a", "s", "d", "f", "j", "k", "l", ";"],
     all: [
-      "a",
-      "b",
-      "c",
-      "d",
-      "e",
-      "f",
-      "g",
-      "h",
-      "i",
-      "j",
-      "k",
-      "l",
-      "m",
-      "n",
-      "o",
-      "p",
-      "q",
-      "r",
-      "s",
-      "t",
-      "u",
-      "v",
-      "w",
-      "x",
-      "y",
-      "z",
-      "!",
-      "@",
-      "#",
-      "$",
-      "%",
-      "^",
-      "&",
-      "*",
-      "(",
-      ")",
-      "_",
-      "+",
-      "-",
-      "=",
-      "[",
-      "]",
-      "{",
-      "}",
-      "|",
-      ";",
-      ":",
-      "'",
-      '"',
-      ",",
-      ".",
-      "<",
-      ">",
-      "/",
-      "?",
-      "`",
-      "~",
+      "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
+      "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+      "`", "-", "=", "[", "]", "\\", ";", "'", ",", ".", "/"
     ],
   };
 
-  const allKeysDisplay = "A-Z !@#$%&*()_+-=[]{}|;:'\",.<>/?`~";
+  const allKeysDisplay = "A-Z `-=[]\\;',./";
 
   function getModeTitle(m: GameMode): string {
     const titles = {
@@ -352,7 +298,7 @@
   }
 
   .game-title {
-    font-size: 1.5rem;
+    font-size: clamp(1rem, 2.5vh, 1.5rem);
     font-weight: 700;
     margin: 0;
     flex: 1;
@@ -371,14 +317,14 @@
   }
 
   .stat-label {
-    font-size: 0.75rem;
+    font-size: clamp(0.625rem, 1.2vh, 0.75rem);
     color: #94a3b8;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
 
   .stat-value {
-    font-size: 1.5rem;
+    font-size: clamp(1rem, 2.5vh, 1.5rem);
     font-weight: 700;
     color: #fbbf24;
   }
@@ -395,7 +341,7 @@
   .game-area {
     position: relative;
     width: 100%;
-    height: 500px;
+    height: calc(50vh + 50px);
     background: rgba(0, 0, 0, 0.3);
     border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
@@ -414,7 +360,7 @@
 
   .letter {
     position: absolute;
-    font-size: 3rem;
+    font-size: clamp(1.5rem, 4vh, 3rem);
     font-weight: 900;
     color: #fbbf24;
     text-shadow: 0 0 20px rgba(251, 191, 36, 0.8);
@@ -440,7 +386,7 @@
   }
 
   .overlay-content h2 {
-    font-size: 1.75rem;
+    font-size: clamp(1.25rem, 3vh, 1.75rem);
     font-weight: 800;
     margin: 0 0 0.5rem 0;
     background: linear-gradient(135deg, #fbbf24, #f59e0b);
@@ -452,7 +398,7 @@
   .overlay-content p {
     color: #cbd5e1;
     margin: 0 0 1rem 0;
-    font-size: 0.875rem;
+    font-size: clamp(0.75rem, 1.5vh, 0.875rem);
   }
 
   .key-hint {
@@ -465,19 +411,19 @@
 
   .key-hint p {
     margin: 0 0 0.5rem 0;
-    font-size: 0.75rem;
+    font-size: clamp(0.625rem, 1.2vh, 0.75rem);
   }
 
   .keys {
     font-family: "Courier New", monospace;
-    font-size: 1.25rem;
+    font-size: clamp(1rem, 2vh, 1.25rem);
     font-weight: 700;
     letter-spacing: 0.5rem;
     color: #fbbf24;
   }
 
   .keys-all {
-    font-size: 0.875rem;
+    font-size: clamp(0.75rem, 1.5vh, 0.875rem);
     letter-spacing: 0.15rem;
     line-height: 1.4;
   }
@@ -593,24 +539,7 @@
     }
 
     .game-area {
-      height: 280px;
-    }
-
-    .letter {
-      font-size: 2rem;
-    }
-
-    .overlay-content h2 {
-      font-size: 1.5rem;
-    }
-
-    .keys {
-      font-size: 1rem;
-      letter-spacing: 0.25rem;
-    }
-
-    .score-value {
-      font-size: 2rem;
+      height: 45vh;
     }
 
     .game-actions {

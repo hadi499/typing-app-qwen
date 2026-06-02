@@ -64,7 +64,7 @@
         <div class="mode-icon">🚀</div>
         <h2 class="mode-title">Semua Huruf & Karakter</h2>
         <p class="mode-desc">Tantang dirimu dengan semua tombol</p>
-        <div class="mode-keys">A-Z !@#$%...</div>
+        <div class="mode-keys">A-Z `-=[]\;',./</div>
         <div class="mode-difficulty">Sulit</div>
         {#if highScores.all > 0}
           <div class="mode-high-score">🏆 {highScores.all}</div>

@@ -2,12 +2,9 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import { getCurrentUserId, getUsers, clearCurrentUserId } from '$lib/stores/users';
-	import { getTotalStars, getMaxStars } from '$lib/stores/progress';
 
 	let currentUserName = $state('');
 	let currentUserAvatar = $state('');
-	let totalStars = $state(0);
-	let maxStars = $state(0);
 
 	function loadUserData() {
 		const userId = getCurrentUserId();
@@ -19,9 +16,6 @@
 			currentUserName = user.name;
 			currentUserAvatar = user.avatar;
 		}
-
-		totalStars = getTotalStars();
-		maxStars = getMaxStars();
 	}
 
 	function handleSwitchUser() {
@@ -70,13 +64,8 @@
 			</div>
 		</div>
 
-		<div class="navbar-right">
-			<div class="star-counter">
-				<span class="star-icon">⭐</span>
-				<span class="star-count">{totalStars} / {maxStars}</span>
-			</div>
-			
-			<button class="user-profile" onclick={handleSwitchUser} title="Ganti User">
+	<div class="navbar-right">
+		<button class="user-profile" onclick={handleSwitchUser} title="Ganti User">
 				<span class="user-avatar">{currentUserAvatar}</span>
 				<span class="user-name">{currentUserName}</span>
 			</button>
@@ -170,27 +159,6 @@
 	.navbar-right {
 		display: flex;
 		align-items: center;
-		gap: 1rem;
-	}
-
-	.star-counter {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		background: rgba(251, 191, 36, 0.1);
-		border: 1px solid rgba(251, 191, 36, 0.3);
-		border-radius: 20px;
-		padding: 0.5rem 1rem;
-	}
-
-	.star-icon {
-		font-size: 1.25rem;
-	}
-
-	.star-count {
-		font-weight: 700;
-		color: #fbbf24;
-		font-size: 0.875rem;
 	}
 
 	.user-profile {
@@ -247,7 +215,7 @@
 
 		.navbar-right {
 			width: 100%;
-			justify-content: space-between;
+			justify-content: center;
 		}
 
 		.user-name {
