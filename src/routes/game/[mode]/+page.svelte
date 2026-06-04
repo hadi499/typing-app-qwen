@@ -8,9 +8,9 @@
     getGameHighScores,
   } from "$lib/stores/users";
 
-  type GameMode = "left" | "right" | "both" | "all";
+  type GameMode = "left" | "right" | "both" | "letters" | "all";
 
-  const validModes: GameMode[] = ["left", "right", "both", "all"];
+  const validModes: GameMode[] = ["left", "right", "both", "letters", "all"];
 
   // Safe parameter extraction - params sudah di-decode oleh SvelteKit
   const mode = $derived.by(() => {
@@ -36,11 +36,16 @@
   let spawnInterval: ReturnType<typeof setInterval> | null = null;
   let animationFrame: number | null = null;
   let lastTime = $state(0);
+  let keysPressed = new Set<string>();
 
   const keyMap = {
     left: ["a", "s", "d", "f"],
     right: ["j", "k", "l", ";"],
     both: ["a", "s", "d", "f", "j", "k", "l", ";"],
+    letters: [
+      "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
+      "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
+    ],
     all: [
       "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
       "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
@@ -55,6 +60,7 @@
       left: "Home Row Kiri",
       right: "Home Row Kanan",
       both: "Home Row Lengkap",
+      letters: "Semua Huruf",
       all: "Semua Huruf & Karakter",
     };
     return titles[m];
@@ -105,6 +111,7 @@
     nextLetterId = 0;
     gameState = "playing";
     lastTime = performance.now();
+    keysPressed.clear();
 
     spawnInterval = setInterval(spawnLetter, getSpawnInterval());
     animationFrame = requestAnimationFrame(gameLoop);
@@ -163,18 +170,32 @@
     const key = e.key;
     const validKeys = keyMap[mode];
 
-    // Untuk huruf, bandingkan case-insensitive
-    // Untuk karakter khusus, bandingkan case-sensitive
     const keyToCheck =
       key.length === 1 && /[a-zA-Z]/.test(key) ? key.toLowerCase() : key;
 
     if (!validKeys.includes(keyToCheck)) return;
+
+    if (keysPressed.has(keyToCheck)) return;
+
+    keysPressed.add(keyToCheck);
+
+    if (keysPressed.size > 2) {
+      endGame();
+      return;
+    }
 
     const index = letters.findIndex((l) => l.char === keyToCheck);
     if (index !== -1) {
       letters = letters.filter((_, i) => i !== index);
       score += 10;
     }
+  }
+
+  function handleKeyup(e: KeyboardEvent) {
+    const key = e.key;
+    const keyToCheck =
+      key.length === 1 && /[a-zA-Z]/.test(key) ? key.toLowerCase() : key;
+    keysPressed.delete(keyToCheck);
   }
 
   function cleanup() {
@@ -195,8 +216,10 @@
     }
 
     window.addEventListener("keydown", handleKeydown);
+    window.addEventListener("keyup", handleKeyup);
     return () => {
       window.removeEventListener("keydown", handleKeydown);
+      window.removeEventListener("keyup", handleKeyup);
       cleanup();
     };
   });

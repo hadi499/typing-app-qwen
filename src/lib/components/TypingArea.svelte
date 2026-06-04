@@ -63,7 +63,6 @@
   .char-error {
     color: #f87171;
     background: rgba(248, 113, 113, 0.2);
-    text-decoration: underline;
   }
 
   .char-pending {

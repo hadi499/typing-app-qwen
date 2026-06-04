@@ -29,9 +29,10 @@
   let startTime = $state<number | null>(null);
   let elapsed = $state(0);
   let finished = $state(false);
-  let activeKey = $state("");
   let pressedKey = $state("");
   let timerInterval: ReturnType<typeof setInterval> | null = null;
+
+  const activeKey = $derived(currentIndex < text.length ? text[currentIndex].toLowerCase() : "");
 
   let stats: TypingStats = $state({
     wpm: 0,
@@ -83,11 +84,6 @@
       time: 0,
     };
     if (timerInterval) clearInterval(timerInterval);
-    if (lesson && lesson.keys.length > 0) {
-      activeKey = lesson.keys[0];
-    } else if (text.length > 0) {
-      activeKey = text[0].toLowerCase();
-    }
   }
 
   function updateStats() {
@@ -123,9 +119,6 @@
       if (currentIndex > 0) {
         currentIndex--;
         errors.delete(currentIndex);
-        if (currentIndex < text.length) {
-          activeKey = text[currentIndex].toLowerCase();
-        }
       }
       return;
     }
@@ -150,10 +143,6 @@
     }
 
     currentIndex++;
-
-    if (currentIndex < text.length) {
-      activeKey = text[currentIndex].toLowerCase();
-    }
 
     updateStats();
 

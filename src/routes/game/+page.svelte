@@ -2,9 +2,9 @@
   import { goto } from "$app/navigation";
   import { getCurrentUserId, getGameHighScores } from "$lib/stores/users";
 
-  let highScores = $state({ left: 0, right: 0, both: 0, all: 0 });
+  let highScores = $state({ left: 0, right: 0, both: 0, letters: 0, all: 0 });
 
-  function selectMode(mode: "left" | "right" | "both" | "all") {
+  function selectMode(mode: "left" | "right" | "both" | "letters" | "all") {
     goto(`/game/${mode}`);
   }
 
@@ -57,6 +57,17 @@
         <div class="mode-difficulty">Sedang</div>
         {#if highScores.both > 0}
           <div class="mode-high-score">🏆 {highScores.both}</div>
+        {/if}
+      </button>
+
+      <button class="mode-card mode-letters" onclick={() => selectMode("letters")}>
+        <div class="mode-icon">🔤</div>
+        <h2 class="mode-title">Semua Huruf</h2>
+        <p class="mode-desc">Latih semua huruf A-Z</p>
+        <div class="mode-keys">A-Z</div>
+        <div class="mode-difficulty">Sedang</div>
+        {#if highScores.letters > 0}
+          <div class="mode-high-score">🏆 {highScores.letters}</div>
         {/if}
       </button>
 
@@ -154,6 +165,11 @@
   .mode-both:hover {
     background: rgba(74, 222, 128, 0.2);
     border-color: #4ade80;
+  }
+
+  .mode-letters:hover {
+    background: rgba(251, 191, 36, 0.2);
+    border-color: #fbbf24;
   }
 
   .mode-all:hover {

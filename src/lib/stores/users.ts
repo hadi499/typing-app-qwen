@@ -126,14 +126,14 @@ export function saveLessonProgress(userId: string, progress: LessonProgress) {
 	localStorage.setItem(`typing-app-progress-${userId}`, JSON.stringify(arr));
 }
 
-export function getGameHighScores(userId: string): { left: number; right: number; both: number; all: number } {
-	if (typeof window === 'undefined') return { left: 0, right: 0, both: 0, all: 0 };
+export function getGameHighScores(userId: string): { left: number; right: number; both: number; letters: number; all: number } {
+	if (typeof window === 'undefined') return { left: 0, right: 0, both: 0, letters: 0, all: 0 };
 	const raw = localStorage.getItem(`typing-app-highscores-${userId}`);
-	if (!raw) return { left: 0, right: 0, both: 0, all: 0 };
+	if (!raw) return { left: 0, right: 0, both: 0, letters: 0, all: 0 };
 	return JSON.parse(raw);
 }
 
-export function saveGameHighScore(userId: string, mode: 'left' | 'right' | 'both' | 'all', score: number) {
+export function saveGameHighScore(userId: string, mode: 'left' | 'right' | 'both' | 'letters' | 'all', score: number) {
 	const scores = getGameHighScores(userId);
 	if (score > scores[mode]) {
 		scores[mode] = score;
